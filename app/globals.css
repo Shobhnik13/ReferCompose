@@ -85,3 +85,21 @@
   filter: blur(110px);
   transform: rotate(-90deg);
 }
+
+@keyframes ltr {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+.inner{
+  animation-name: ltr;
+  animation-duration: 5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

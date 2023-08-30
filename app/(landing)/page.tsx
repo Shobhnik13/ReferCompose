@@ -1,3 +1,4 @@
+import Footer from "../../components/footer"
 import LandingAbout from "../../components/landing-about"
 import LandingAnimation from "../../components/landing-animation"
 import LandingHero from "../../components/landing-hero"
@@ -8,8 +9,9 @@ const LandingPage = () => {
     <div className="h-full">       
         <LandingNav/>
         <LandingHero/>
-        <LandingAbout/>
         <LandingAnimation/>
+        <LandingAbout/>
+        <Footer/>
     </div>
   )
 }
