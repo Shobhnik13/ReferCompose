@@ -81,7 +81,7 @@
   left: 32%;
   top: -20%;
 
-  background: rgba(200, 50, 232, 0.35);
+  background: rgba(200, 50, 232, 0.28);
   filter: blur(110px);
   transform: rotate(-90deg);
 }
