@@ -70,7 +70,7 @@ const LandingAnimation = () => {
                 <h1 className='text-2xl font-bold text-violet-700/80'>Generate the best cold email templates and get hired in top companies across the globe!</h1>
                 <p className=' text-violet-700/70'>Introducing our AI-powered Cold Emailing SaaS, a game-changer in securing job referrals.Elevate your job search with tailored cold emails that leave a lasting impression.</p>
                 <Link href={'/'}>
-                <Button className='w-full mt-4' onClick={()=>window.scrollTo(0,0)}>Get Started <ArrowUp className='w-4 h-4'/></Button>
+                <Button className='w-full mt-4' onClick={()=>window.scrollTo({top:0,left:0})}>Get Started <ArrowUp className='w-4 h-4'/></Button>
                 </Link>
             </div>
             <div className='w-[60%]'>

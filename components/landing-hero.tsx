@@ -1,8 +1,11 @@
 'use client'
 import TypewriterComponent from "typewriter-effect"
 import { Button } from "./ui/button"
-
-const LandingHero = () => {
+import Link from "next/link"
+interface LandingHeroProps{
+isUser:boolean
+}
+const LandingHero = ({isUser}:LandingHeroProps) => {
   return (
     <div>
         <div className="gradient-01 z-0"/>
@@ -28,7 +31,9 @@ const LandingHero = () => {
             <p>Elevate Your Cold Emails with AI SaaS Magic!</p>  
         </div>
         <div className="pt-6" >
+        <Link href={'/dashboard'}>
         <Button className="bg-gradient-to-r from-violet-500/80 to-pink-300/80 px-20 py-4 text-xl hover:scale-110 transition-all duration-200">Start Exploring!</Button>
+        </Link>
         </div>
         </div>
     </div>  
