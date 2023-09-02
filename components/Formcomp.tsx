@@ -9,8 +9,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { formSchema } from '../app/dashboard/coversation'
 import { Zap } from 'lucide-react'
-
-
+import { useState } from 'react'
+import axios from 'axios'
+import { NextResponse } from 'next/server'
+import { useRouter } from 'next/navigation'
 const FormComp = () => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -21,9 +23,19 @@ const FormComp = () => {
           experience:"",
         },
       })
+      const router=useRouter()
       const isLoading=form.formState.isSubmitting
+      const [message,setMessage]=useState('')
       const onSubmit=async(values: z.infer<typeof formSchema>)=>{
-        
+        try{
+          const res=await axios.post('/api/email',values)
+          setMessage(res.data);
+          form.reset();
+        }catch(error:any){
+          console.log('error')
+        }finally{
+          router.refresh()
+        }
       }
   return (
     <div className='w-[60%] m-auto'>
@@ -76,6 +88,11 @@ const FormComp = () => {
                   <Button type="submit" className="bg-gradient-to-r from-indigo-500 text-black via-purple-500 to-pink-500 col-span-12 md:col-span-2 w-full text-lg " disabled={isLoading}>{isLoading?'Generating...':`Generate`}</Button>
             </form>
           </Form>
+          {message && (
+            <div>
+              {message}
+            </div>
+          )}
     </div>
   )
 }
