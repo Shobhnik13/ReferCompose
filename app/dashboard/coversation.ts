@@ -7,4 +7,5 @@ export const formSchema = z.object({
     receiverName: z.string().min(1,{message:'field is required'}),
     title: z.string().min(1,{message:'field is required'}),
     experience: z.string().min(1,{message:'field is required'}),
+    company:z.string().min(1,{message:'field is required'}),
 })

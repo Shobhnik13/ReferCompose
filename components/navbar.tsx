@@ -3,19 +3,24 @@
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 import { Button } from "./ui/button"
 import { useRouter } from "next/navigation"
+import { useState } from "react"
+
+
 
 const Navbar = () => {
     const router=useRouter()
     const supabase=createClientComponentClient()
     const handleLogout=async()=>{
-        try{
+      const confirm = window.confirm('Are you sure to logout?');
+      if(confirm){  
+      try{
             await supabase.auth.signOut();
             router.refresh()
         }catch(error:any){
 
         }
+      }
     }
-
   return (
     <div className="p-4 flex justify-between items-center">
       <div></div>
