@@ -7,7 +7,7 @@ import { Input } from './ui/input'
 import { Button } from './ui/button'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { formSchema } from '../app/dashboard/coversation'
+import { formSchema, typeOpts } from '../app/dashboard/coversation'
 import { ArrowLeft, CopyCheck, CopyIcon, Zap } from 'lucide-react'
 import { useState } from 'react'
 import axios from 'axios'
@@ -15,6 +15,7 @@ import { NextResponse } from 'next/server'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import TypewriterComponent from 'typewriter-effect'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select'
 const FormComp = () => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -24,6 +25,8 @@ const FormComp = () => {
           title:"",
           company:"",
           experience:"",
+          type:'Internship',
+          tech:"",
         },
       })
       const router=useRouter()
@@ -52,10 +55,11 @@ const FormComp = () => {
       }
   return (
     <div className='w-[60%] m-auto'>
-      <h1 className="text-center text-3xl/snug font-semibold pb-10 text-transparent bg-clip-text bg-gradient-to-r  from-indigo-400 via-purple-400 to-pink-600">{message?'Here is your email!!':'Enter your details'}</h1>
+      <h1 className="text-center text-3xl/snug font-semibold pb-10 flex-col text-transparent bg-clip-text bg-gradient-to-r  from-indigo-400 via-purple-400 to-pink-600">{message?'Here is your email!!':'Enter your details'}</h1>
        {!message && <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="rounded-lg flex justify-center items-center flex-col gap-y-16">
             {/* sender name  */}
+           <div className='flex flex-row gap-x-12 w-full'>
             <FormField
                 control={form.control}
                 name="senderName"
@@ -71,12 +75,14 @@ const FormComp = () => {
                 control={form.control}
                 name="receiverName"
                 render={({ field }) => (
-                  <FormItem className="w-full ">
+                  <FormItem className="w-full">
                         <FormControl >
                           <Input placeholder="Receiver's name" disabled={isLoading} className=" text-lg  focus:border-1 border-gray-300 outline-none focus-visible:ring-0 focus-visible:ring-transparent" {...field} />
                         </FormControl>
                   </FormItem>
                 )}/>
+                </div>
+                <div className='flex flex-row gap-x-12 w-full'>
             {/* title  */}
             <FormField
                 control={form.control}
@@ -99,6 +105,8 @@ const FormComp = () => {
                         </FormControl>
                   </FormItem>
                 )}/>
+                </div>
+                <div className='flex flex-row gap-x-12 w-full'>
                 {/* experience  */}
                 <FormField
                 control={form.control}
@@ -110,7 +118,48 @@ const FormComp = () => {
                         </FormControl>
                   </FormItem>
                 )}/>
-                  <Button type="submit" className="mb-4 hover:scale-95 duration-150 transition-all bg-gradient-to-r from-indigo-500 text-black via-purple-500 to-pink-500 col-span-12 md:col-span-2 w-full text-lg " disabled={isLoading}>{isLoading?'Generating...':`Generate`}</Button>
+                {/* type  */}
+                <FormField
+                control={form.control}
+                name="type"
+                render={({ field }) => (
+                  <FormItem  className="w-[50%]">
+                       <Select
+                       disabled={isLoading}
+                       value={field.value}
+                       onValueChange={field.onChange}
+                       defaultValue={field.value}>
+                          <FormControl>
+                              <SelectTrigger>
+                                <SelectValue defaultValue={field.value}/>
+                              </SelectTrigger>
+                          </FormControl>
+                          <SelectContent className=" text-lg  focus:border-1 border-gray-300 outline-none focus-visible:ring-0 focus-visible:ring-transparent">
+                            {typeOpts.map((item)=>(
+                                <SelectItem
+                                key={item.value}
+                                value={item.value}
+                                >
+                                  {item.title}
+                                </SelectItem>
+                            ))}
+                          </SelectContent>
+                       </Select>
+                  </FormItem>
+                )}/>
+                </div>
+                {/* techstack */}
+                <FormField
+                control={form.control}
+                name="tech"
+                render={({ field }) => (
+                  <FormItem className="w-full ">
+                        <FormControl >
+                          <Input placeholder="Tech stack on which you are shipping stuff" disabled={isLoading} className=" text-lg  focus:border-1 border-gray-300 outline-none focus-visible:ring-0 focus-visible:ring-transparent" {...field} />
+                        </FormControl>
+                  </FormItem>
+                )}/>
+                  <Button type="submit" className="mb-4 hover:scale-95 duration-150 transition-all bg-gradient-to-r from-indigo-500 text-black via-purple-500 to-pink-500 col-span-12 md:col-span-2 w-full text-lg " disabled={isLoading}>{isLoading?'Generating...':`Generate`} <Zap className='fill-black w-4 h-4 ml-1'/></Button>
             </form>
           </Form>}
           {message && (

@@ -8,4 +8,17 @@ export const formSchema = z.object({
     title: z.string().min(1,{message:'field is required'}),
     experience: z.string().min(1,{message:'field is required'}),
     company:z.string().min(1,{message:'field is required'}),
+    type:z.string().min(1,{message:'field is required'}),
+    tech:z.string().min(1,{message:'field is required'}),
 })
+
+export const typeOpts=[
+    {
+        value:'Full-time',
+        title:'Full-time'
+    },
+    {
+        value:'Internship',
+        title:'Internship'
+    },
+]
