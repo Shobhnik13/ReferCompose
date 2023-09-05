@@ -12,7 +12,7 @@ const DashboardPage = async() => {
     redirect('/auth')
   }
   return (
-    <div>
+    <div className="z-0">
       <Navbar/>
       
       <div>

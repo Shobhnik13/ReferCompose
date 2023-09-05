@@ -1,8 +1,9 @@
 'use client'
-import {  Zap } from "lucide-react"
+import {  ArrowLeft, Zap } from "lucide-react"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 import { Card } from "../../../components/ui/card"
 import { Button } from "../../../components/ui/button"
+import Link from "next/link"
 
 const AuthComp = () => {
   const supabase=createClientComponentClient()
@@ -26,6 +27,9 @@ const AuthComp = () => {
             <div className="p-8 flex space-y-5 flex-col items-center justify-center">
               <p className="text-2xl/snug font-semibold text-purple-600/60">Get your free cold email template now!!</p>
               <Button onClick={handleLogin} className="border-none text-lg bg-gradient-to-r  from-indigo-400 via-purple-400 to-pink-400 text-black">Login with Google <Zap className="fill-black ml-1 "/> </Button>
+              <Link href={'/'}>
+              <Button variant={'default'}  className="border-none text-lg bg-gradient-to-r  from-indigo-400 via-purple-400 to-pink-400 text-black">  <ArrowLeft className="fill-black mr-1 "/>Back to home page</Button>
+              </Link>
             </div>
           </Card>
         </div>

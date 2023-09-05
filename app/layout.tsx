@@ -1,8 +1,12 @@
+import ToastProvider from '../components/toast-provider'
 import './globals.css'
 export default function RootLayout({children}: {children: React.ReactNode}) {
     return (
       <html lang="en">
-        <body>{children}</body>
+        <body>
+          <ToastProvider/>
+          {children}
+        </body>
       </html>
     )
   }

@@ -16,6 +16,8 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import TypewriterComponent from 'typewriter-effect'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select'
+import Loader from './loader'
+import { toast } from 'react-hot-toast'
 const FormComp = () => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -31,16 +33,20 @@ const FormComp = () => {
       })
       const router=useRouter()
       const isLoading=form.formState.isSubmitting
+      const [loading,setLoading]=useState(false)
       const [message,setMessage]=useState('')
       const onSubmit=async(values: z.infer<typeof formSchema>)=>{
         try{
-
+          setLoading(true)
           const res=await axios.post('/api/email',values)
           setMessage(res.data);
           form.reset();
         }catch(error:any){
+          toast.error('Something went wrong!')
+          setLoading(false)
           console.log('error')
         }finally{
+          setLoading(false)
           router.refresh()
         }
       }
@@ -56,7 +62,8 @@ const FormComp = () => {
   return (
     <div className='w-[60%] m-auto'>
       <h1 className="text-center text-3xl/snug font-semibold pb-10 flex-col text-transparent bg-clip-text bg-gradient-to-r  from-indigo-400 via-purple-400 to-pink-600">{message?'Here is your email!!':'Enter your details'}</h1>
-       {!message && <Form {...form}>
+      {loading && <Loader/>}
+       {!message && !loading && <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="rounded-lg flex justify-center items-center flex-col gap-y-16">
             {/* sender name  */}
            <div className='flex flex-row gap-x-12 w-full'>
@@ -162,7 +169,7 @@ const FormComp = () => {
                   <Button type="submit" className="mb-4 hover:scale-95 duration-150 transition-all bg-gradient-to-r from-indigo-500 text-black via-purple-500 to-pink-500 col-span-12 md:col-span-2 w-full text-lg " disabled={isLoading}>{isLoading?'Generating...':`Generate`} <Zap className='fill-black w-4 h-4 ml-1'/></Button>
             </form>
           </Form>}
-          {message && (
+          {message && !loading && (
             <div className=''>
               <div className='text-2xl text-emerald-500 bg-emerald-500/10  p-4 rounded-xl'>
               <TypewriterComponent
