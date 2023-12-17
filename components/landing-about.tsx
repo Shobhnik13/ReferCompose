@@ -58,7 +58,7 @@ const LandingAbout = () => {
                         <CheckCircleIcon className="bg-green-500/10 flex mt-1 text-green-500"/>
                         </div>
                         <CardDescription>{item.desc}</CardDescription>
-                      </CardHeader>
+                      </CardHeader> 
                     </Card>
                 ))}
             </div>
