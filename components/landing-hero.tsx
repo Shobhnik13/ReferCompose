@@ -8,7 +8,8 @@ isUser:boolean
 const LandingHero = ({isUser}:LandingHeroProps) => {
   return (
     <div>
-        <div className="gradient-01 z-0"/>
+        <div className="gradient-01 z-0"/>  
+        
         <div className="z-10 pt-20 mt-20 flex flex-col items-center justify-center backdrop-blur-xl">
         <div className="text-center w-[85%] text-fuchsia-800 text-5xl/snug font-extrabold backdrop-blur-3xl ">
             <p>The Ultimate AI powered tool to generate cold email templates!!!</p>
